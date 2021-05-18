@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RequestCameraAuthorizationView" customModule="dashcam" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="7Bo-Zg-NtE" id="fre-A1-J26"/>
+                <outlet property="actionButtonWidthConstraint" destination="svV-53-5F4" id="fRj-hw-ukV"/>
                 <outlet property="cameraImageView" destination="CPu-rk-IGH" id="fQc-2S-TNi"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="S3q-o9-KGE"/>
                 <outlet property="messageLabel" destination="Zqf-zR-pLd" id="x8H-a4-t46"/>

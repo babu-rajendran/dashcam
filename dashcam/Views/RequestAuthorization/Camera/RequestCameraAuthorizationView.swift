@@ -18,6 +18,7 @@ class RequestCameraAuthorizationView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var actionButton: UIButton!
+    @IBOutlet private weak var actionButtonWidthConstraint: NSLayoutConstraint!
     
     weak var delegate: RequestCameraAuthorizationViewDelegate?
     
@@ -63,12 +64,22 @@ class RequestCameraAuthorizationView: UIView {
         }
     }
     
-    func animateOutViews() {
+    func animateOutViews(completionHandler: @escaping () -> Void) {
         let viewsToAnimate = [cameraImageView, titleLabel, messageLabel, actionButton]
         for(i, viewToAnimate) in viewsToAnimate.enumerated() {
             guard let view = viewToAnimate else { continue }
-            animateOutView(view: view, delay: Double(i) * 0.25)
+            var completionHandlerToCall: (() -> Void)? = nil
+            if viewToAnimate == viewsToAnimate.last {
+                completionHandlerToCall = completionHandler
+            }
+            animateOutView(view: view, delay: Double(i) * 0.25, completionHanlder: completionHandlerToCall)
         }
+    }
+    
+    func configureForDisabledState() {
+        titleLabel.text = "Camera Authorization Denied"
+        actionButton.setTitle("Open Settings", for: .normal)
+        actionButtonWidthConstraint.constant = 120
     }
 
 }
@@ -85,12 +96,16 @@ private extension RequestCameraAuthorizationView {
         
     }
     
-    func animateOutView(view: UIView, delay: TimeInterval) {
+    func animateOutView(view: UIView, delay: TimeInterval, completionHanlder: (() -> Void)? = nil) {
         let animation = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut) {
             view.alpha = 0
             view.transform = CGAffineTransform(translationX: 0, y: -20)
         }
+        animation.addCompletion { _ in
+            completionHanlder?()
+        }
         animation.startAnimation(afterDelay: delay)
+        
         
     }
 }
