@@ -10,17 +10,40 @@ import UIKit
 class LaunchViewController: UIViewController {
     
     private var requestCameraAuthorizationView: RequestCameraAuthorizationView?
-
+    
+    private var cameraAuthorizationStatus = RequestCameraAuthorizationConroller.getCameraAuthorizationStatus() {
+        didSet {
+            setupViewForNextAuthorizationRequest()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupRequestCameraAuthorizationView()
+        setupViewForNextAuthorizationRequest()
         
     }
 
 }
 
 private extension LaunchViewController {
+    func setupViewForNextAuthorizationRequest() {
+        
+        guard cameraAuthorizationStatus == .granted else {
+            setupRequestCameraAuthorizationView()
+            return
+        }
+        
+        if let _ = requestCameraAuthorizationView {
+            removeRequestCameraAuthorizationView()
+            return
+        }
+        
+    }
+    
     func setupRequestCameraAuthorizationView() {
+        guard requestCameraAuthorizationView == nil else {
+            return
+        }
         let requestCameraAuthorizationView = RequestCameraAuthorizationView()
         requestCameraAuthorizationView.translatesAutoresizingMaskIntoConstraints = false
         requestCameraAuthorizationView.delegate = self
@@ -30,14 +53,14 @@ private extension LaunchViewController {
             requestCameraAuthorizationView.topAnchor.constraint(equalTo: view.topAnchor),
             requestCameraAuthorizationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             requestCameraAuthorizationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
-        requestCameraAuthorizationView.configureForDisabledState()
         requestCameraAuthorizationView.animateInViews()
         self.requestCameraAuthorizationView = requestCameraAuthorizationView
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
-            guard let self = self else { return }
-            self.removeRequestCameraAuthorizationView()
-        }
+//        Test Code for authorization
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
+//            guard let self = self else { return }
+//            self.removeRequestCameraAuthorizationView()
+//        }
         
 //        Code for animating out
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
@@ -46,9 +69,12 @@ private extension LaunchViewController {
     }
     
     func removeRequestCameraAuthorizationView() {
-        guard requestCameraAuthorizationView != nil else { return }
-        requestCameraAuthorizationView?.animateOutViews(completionHandler: {
-            print("Animation Complete!")
+        guard let requestCameraAuthorizationView = requestCameraAuthorizationView else { return }
+        requestCameraAuthorizationView.animateOutViews(completionHandler: { [weak self] in
+            guard let self = self else { return }
+            requestCameraAuthorizationView.removeFromSuperview()
+            self.requestCameraAuthorizationView = nil
+            self.setupViewForNextAuthorizationRequest()
         })
 //        requestCameraAuthorizationView?.removeFromSuperview()
     }
@@ -56,15 +82,9 @@ private extension LaunchViewController {
 
 extension LaunchViewController: RequestCameraAuthorizationViewDelegate {
     func requestCameraAuthorizationTapped() {
-        RequestCameraAuthorizationConroller.requestCameraAuthorization() { status in
-            switch status {
-            case .granted:
-                print("granted")
-            case .notRequested:
-                print("not requested")
-            case .unauthorized:
-                print("unauthorized")
-            }
+        RequestCameraAuthorizationConroller.requestCameraAuthorization() { [weak self] status in
+            guard let self = self else { return }
+            self.cameraAuthorizationStatus = status
         }
     }
 }
