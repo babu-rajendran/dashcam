@@ -38,10 +38,46 @@ class RequestCameraAuthorizationView: UIView {
         addSubview(contentView)
         contentView.frame = bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        addActionButtonShadow()
     }
     
     @IBAction func actionButtonHandler(btn: UIButton) {
         delegate?.requestCameraAuthorizationTapped()
     }
+    
+    private func addActionButtonShadow() {
+        actionButton.layer.shadowColor = UIColor.black.cgColor
+        actionButton.layer.shadowOpacity = 0.3
+        actionButton.layer.shadowRadius = 10
+        actionButton.layer.masksToBounds = false
+        actionButton.layer.shadowOffset = CGSize(width: 5, height: 10)
+        actionButton.layer.cornerRadius = 4
+    }
+    
+    func animateInViews() {
+        let viewsToAnimate = [cameraImageView, titleLabel, messageLabel, actionButton]
+        for(i, viewToAnimate) in viewsToAnimate.enumerated() {
+            guard let view = viewToAnimate else { continue }
+            animateInView(view: view, delay: Double(i) * 0.25)
+        }
+    }
 
+}
+
+private extension RequestCameraAuthorizationView {
+    func animateInView(view: UIView, delay: TimeInterval) {
+        view.alpha = 0
+        view.transform = CGAffineTransform(translationX: 0, y: -20)
+        let animation = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut) {
+            view.alpha = 1
+            view.transform = .identity
+        }
+        animation.startAnimation(afterDelay: delay)
+        
+    }
+    
+    func animateOutView(view: UIView) {
+        
+    }
 }

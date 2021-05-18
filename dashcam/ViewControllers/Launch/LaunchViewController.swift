@@ -28,6 +28,7 @@ private extension LaunchViewController {
             requestCameraAuthorizationView.topAnchor.constraint(equalTo: view.topAnchor),
             requestCameraAuthorizationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             requestCameraAuthorizationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+        requestCameraAuthorizationView.animateInViews()
     }
 }
 
