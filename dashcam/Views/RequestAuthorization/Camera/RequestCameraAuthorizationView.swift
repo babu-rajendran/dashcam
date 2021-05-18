@@ -62,6 +62,14 @@ class RequestCameraAuthorizationView: UIView {
             animateInView(view: view, delay: Double(i) * 0.25)
         }
     }
+    
+    func animateOutViews() {
+        let viewsToAnimate = [cameraImageView, titleLabel, messageLabel, actionButton]
+        for(i, viewToAnimate) in viewsToAnimate.enumerated() {
+            guard let view = viewToAnimate else { continue }
+            animateOutView(view: view, delay: Double(i) * 0.25)
+        }
+    }
 
 }
 
@@ -77,7 +85,12 @@ private extension RequestCameraAuthorizationView {
         
     }
     
-    func animateOutView(view: UIView) {
+    func animateOutView(view: UIView, delay: TimeInterval) {
+        let animation = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut) {
+            view.alpha = 0
+            view.transform = CGAffineTransform(translationX: 0, y: -20)
+        }
+        animation.startAnimation(afterDelay: delay)
         
     }
 }
