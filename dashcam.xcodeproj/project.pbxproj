@@ -17,6 +17,7 @@
 		0FAD44812654316800352807 /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FAD447F2654316800352807 /* LaunchViewController.xib */; };
 		0FAD44892654335B00352807 /* RequestCameraAuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD44882654335B00352807 /* RequestCameraAuthorizationView.swift */; };
 		0FAD448D2654339200352807 /* RequestCameraAuthorizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FAD448C2654339200352807 /* RequestCameraAuthorizationView.xib */; };
+		0FAD44932654468500352807 /* RequestCameraAuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD44922654468500352807 /* RequestCameraAuthorizationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		0FAD447F2654316800352807 /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		0FAD44882654335B00352807 /* RequestCameraAuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCameraAuthorizationView.swift; sourceTree = "<group>"; };
 		0FAD448C2654339200352807 /* RequestCameraAuthorizationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestCameraAuthorizationView.xib; sourceTree = "<group>"; };
+		0FAD44922654468500352807 /* RequestCameraAuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCameraAuthorizationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		0F1C1EFA26542394004F67D5 /* dashcam */ = {
 			isa = PBXGroup;
 			children = (
+				0FAD448F2654466000352807 /* Controllers */,
 				0FAD44842654330200352807 /* Views */,
 				0FAD447A265430F500352807 /* ViewControllers */,
 				0F1C1EFB26542394004F67D5 /* AppDelegate.swift */,
@@ -123,6 +126,30 @@
 			children = (
 				0FAD44882654335B00352807 /* RequestCameraAuthorizationView.swift */,
 				0FAD448C2654339200352807 /* RequestCameraAuthorizationView.xib */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		0FAD448F2654466000352807 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0FAD44902654466600352807 /* RequestAuthorization */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0FAD44902654466600352807 /* RequestAuthorization */ = {
+			isa = PBXGroup;
+			children = (
+				0FAD44912654467100352807 /* Camera */,
+			);
+			path = RequestAuthorization;
+			sourceTree = "<group>";
+		};
+		0FAD44912654467100352807 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0FAD44922654468500352807 /* RequestCameraAuthorizationController.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -203,6 +230,7 @@
 				0F1C1EFC26542394004F67D5 /* AppDelegate.swift in Sources */,
 				0F1C1EFE26542394004F67D5 /* SceneDelegate.swift in Sources */,
 				0FAD44892654335B00352807 /* RequestCameraAuthorizationView.swift in Sources */,
+				0FAD44932654468500352807 /* RequestCameraAuthorizationController.swift in Sources */,
 				0FAD44802654316800352807 /* LaunchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

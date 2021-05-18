@@ -47,6 +47,9 @@
                     <color key="backgroundColor" systemColor="systemBlueColor"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="OK"/>
+                    <connections>
+                        <action selector="actionButtonHandlerWithBtn:" destination="-1" eventType="touchUpInside" id="Msm-Ik-Wsr"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
